@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTax Group｜業務ツール</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a2a4a;
+      --primary-light: #2d4a7a;
+      --accent: #c8a45c;
+      --accent-light: #e8d4a0;
+      --bg: #f7f8fa;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-light: #7f8c9b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --shadow-hover: 0 8px 40px rgba(0,0,0,0.12);
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Yu Gothic', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== ヘッダー ===== */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 2rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      height: 48px;
+      margin-bottom: 0.8rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .header h1 {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.3rem;
+    }
+
+    .header .subtitle {
+      color: var(--accent-light);
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== メインコンテンツ ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      padding-left: 0.8rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    /* ===== ツールカード ===== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.8rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--primary-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .tool-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .tool-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .tool-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .tool-card p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .tag-tax {
+      background: #eef2ff;
+      color: #4338ca;
+    }
+
+    .tag-simulation {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    .tag-accounting {
+      background: #fff7ed;
+      color: #9a3412;
+    }
+
+    .tag-automation {
+      background: #fdf2f8;
+      color: #9d174d;
+    }
+
+    .tool-arrow {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover .tool-arrow {
+      color: var(--accent);
+      right: 1.2rem;
+    }
+
+    /* ===== Coming Soon カード ===== */
+    .tool-card.coming-soon {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .tool-card.coming-soon:hover {
+      transform: none;
+      box-shadow: var(--shadow);
+      border-color: var(--border);
+    }
+
+    .tool-card.coming-soon:hover::before {
+      transform: scaleX(0);
+    }
+
+    .coming-soon-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--text-light);
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    /* ===== フッター ===== */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .footer a {
+      color: var(--primary-light);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== レスポンシブ ===== */
+    @media (max-width: 768px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        padding: 1.5rem 1rem;
+      }
+
+      .logo {
+        height: 36px;
+      }
+
+      .container {
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="header-content">
+      <img src="https://fintax.jp/wp-content/uploads/2022/07/fintax_logo.svg" alt="FinTax Group" class="logo">
+      <h1>業務ツールポータル</h1>
+      <p class="subtitle">Tax & Accounting Tools</p>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <h2 class="section-title">ツール一覧</h2>
+
+    <div class="tools-grid">
+
+      <!-- 役員報酬シミュレーション -->
+      <a href="https://satoshiendo-max.github.io/officer-compensation-simulator/" class="tool-card" target="_blank">
+        <div class="tool-icon">&#128202;</div>
+        <h3>役員報酬シミュレーション</h3>
+        <p>法人 vs 個人事業の税負担比較、最適な役員報酬額の算出、事前確定届出給与（役員賞与）の活用シミュレーションに対応。</p>
+        <div class="tool-tags">
+          <span class="tag tag-tax">税務</span>
+          <span class="tag tag-simulation">シミュレーション</span>
+        </div>
+        <span class="tool-arrow">&#8594;</span>
+      </a>
+
+      <!-- Coming Soon: 借入返済シミュレーション -->
+      <div class="tool-card coming-soon">
+        <span class="coming-soon-badge">COMING SOON</span>
+        <div class="tool-icon">&#127974;</div>
+        <h3>借入返済シミュレーション</h3>
+        <p>元利均等・元金均等の返済額シミュレーション、繰上返済の効果試算、複数借入の一括管理。</p>
+        <div class="tool-tags">
+          <span class="tag tag-simulation">シミュレーション</span>
+        </div>
+      </div>
+
+      <!-- Coming Soon: freee自動仕訳 -->
+      <div class="tool-card coming-soon">
+        <span class="coming-soon-badge">COMING SOON</span>
+        <div class="tool-icon">&#9889;</div>
+        <h3>freee自動仕訳ツール</h3>
+        <p>クレカ明細の自動仕訳登録、自動登録ルールの一括管理、Googleドライブ請求書のfreee連携。</p>
+        <div class="tool-tags">
+          <span class="tag tag-accounting">会計</span>
+          <span class="tag tag-automation">自動化</span>
+        </div>
+      </div>
+
+      <!-- Coming Soon: 減価償却シミュレーション -->
+      <div class="tool-card coming-soon">
+        <span class="coming-soon-badge">COMING SOON</span>
+        <div class="tool-icon">&#128187;</div>
+        <h3>減価償却シミュレーション</h3>
+        <p>定額法・定率法の比較、少額減価償却資産の判定、中古資産の耐用年数計算。</p>
+        <div class="tool-tags">
+          <span class="tag tag-tax">税務</span>
+          <span class="tag tag-simulation">シミュレーション</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    <p>&copy; 2026 FinTax Group / <a href="https://fintax.jp/" target="_blank">fintax.jp</a></p>
+  </div>
+
+</body>
+</html>
